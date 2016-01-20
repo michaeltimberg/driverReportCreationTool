@@ -15,7 +15,6 @@ for string in input
     command = line[0]
     case command
     when "Driver"
-        # either creates a method or class here
         driversMi["#{line[1]}"] = [0]
         driversMPH["#{line[1]}"] = []
     when "Trip"
@@ -29,7 +28,6 @@ for string in input
             summi = driversMi["#{line[1]}"].reduce(:+)
             driversMi["#{line[1]}"] = [] << summi
             driversMPH["#{line[1]}"] << mph
-            #puts "#{line[1]}: #{miles} miles @ #{mph} mph"
             avgmph = driversMPH["#{line[1]}"].reduce(:+).to_i / driversMPH["#{line[1]}"].size
             driversMPH["#{line[1]}"] = [] << avgmph
         end
@@ -45,8 +43,8 @@ output = File.new("Report.txt", "w")
 driversMi.each do |key, array|
     driversMi.sort_by { |a, b| a[0] <=> b[0] }
     driversMPH.each do |key2, array2|
-        if key === key2
-            if array.inject{|a,i| a*10 + i} === 0
+        if key == key2
+            if array.inject{|a,i| a*10 + i} == 0
                 output.puts("#{key}: #{array.inject{|a,i| a*10 + i}} miles")
             else
                 output.puts("#{key}: #{array.inject{|a,i| a*10 + i}} miles @ #{array2.inject{|a,i| a*10 + i}} mph")
